@@ -1,0 +1,34 @@
+{
+  "name": "wdmg/yii2-redirects",
+  "description": "Manage of http-redirects for application",
+  "keywords": ["yii2", "yii2-redirects", "redirects", "redirect", "wdmg"],
+  "type": "yii2-extension",
+  "license": "MIT",
+  "version": "1.0.0",
+  "homepage": "https://github.com/wdmg/yii2-redirects",
+  "support": {
+    "source": "https://github.com/wdmg/yii2-redirects",
+    "issues": "https://github.com/wdmg/yii2-redirects/issues"
+  },
+  "authors": [
+    {
+      "name": "Alexsander Vyshnyvetskyy",
+      "email": "alex.vyshnyvetskyy@gmail.com"
+    },
+    {
+      "name": "W.D.M.Group, Ukraine",
+      "email": "wdmg.com.ua@gmail.com"
+    }
+  ],
+  "require": {
+    "yiisoft/yii2": "^2.0.20",
+    "wdmg/yii2-base": "^1.0.1",
+    "wdmg/yii2-selectinput": "^1.0.5"
+  },
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "wdmg\\redirects\\": ""
+    }
+  }
+}
