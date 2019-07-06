@@ -28,6 +28,7 @@ class Redirects extends ActiveRecord
 {
 
     public $import;
+    public $list;
     public $codeRange = [300, 301, 302, 303, 307, 308];
 
     /**
@@ -69,7 +70,7 @@ class Redirects extends ActiveRecord
             [['section'], 'string', 'min' => 3, 'max' => 128],
             [['description'], 'string', 'max' => 255],
             [['is_active'], 'boolean'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['created_at', 'updated_at', 'list'], 'safe'],
         ];
     }
 
@@ -89,6 +90,7 @@ class Redirects extends ActiveRecord
             'created_at' => Yii::t('app/modules/redirects', 'Created at'),
             'updated_at' => Yii::t('app/modules/redirects', 'Updated at'),
             'import' => Yii::t('app/modules/redirects', 'Import file'),
+            'list' => Yii::t('app/modules/redirects', 'Redirects list'),
         ];
     }
 

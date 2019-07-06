@@ -36,10 +36,17 @@ return [
     'Create redirect' => 'Создание редиректа',
     '&larr; Back to list' => '&larr; Назад к списку',
     'Save' => 'Сохранить',
+    'Add' => 'Добавить',
     'Update redirect for: {url}' => 'Обновление редиректа для: {url}',
     'All redirects' => 'Все редиректы',
     'Edit' => 'Редактировать',
     'Delete' => 'Удалить',
+    'Redirects list' => 'Список перенаправлений',
+
+    'One redirect' => 'Одно перенаправление',
+    'List of redirects' => 'Перенаправления по списку',
+
+    'Please, insert list of redirection one by new line. Format: <em class="text-danger">request URL;redirect URL;Response code</em>' => 'Пожалуйста, введите список перенаправлений каждый с новой строки. В формате: <em class="text-danger">URL запроса;URL перенаправления;Код ответа</em>',
 
     'OK! Redirect ({code}) for `{request_url}` to `{redirect_url}` successfully added.' => 'OK! Перенаправление ({code}) для `{request_url}` на `{redirect_url}` успешно добавлено.',
     'An error occurred while adding a {code}-redirect for `{request_url}` to `{redirect_url}`.' => 'Произошла ошибка при добавлении {code}-перенаправления для `{request_url}` на `{redirect_url}`.',
@@ -51,18 +58,10 @@ return [
     'An error occurred while deleting a {code}-redirect for `{request_url}` to `{redirect_url}`.' => 'Произошла ошибка при удалении {code}-перенаправления для `{request_url}` на `{redirect_url}`.',
 
     'OK! Redirects successfully imported/updated.' => 'OK! Перенаправления успешно импортированы/обновлены.',
-    'An error occurred while importing/updating redirects.' => 'Произошла ошибка при импортировании/обновлении перенаправлений.',
+    'An error occurred while importing/updating redirects.' => 'Произошла ошибка при импорте/обновлении перенаправлений.',
 
-
-
-
-
-
-
-
-
-
-
+    'OK! List of redirects successfully added.' => 'OK! Список перенаправлений успешно добавлен.',
+    'An error occurred while add list of redirects.' => 'Произошла ошибка при добавлении списка перенаправлений.',
 
 ];
 

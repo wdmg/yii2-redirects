@@ -130,16 +130,46 @@ class RedirectsController extends Controller
         $model = new Redirects();
         $model->code = 301;
         $model->is_active = true;
+        $post = Yii::$app->request->post();
+        if (!is_null($post["Redirects"]["list"])) {
+            $data = array();
+            $redirects = explode("\r\n", $post["Redirects"]["list"]);
 
-        if (Yii::$app->request->isAjax) {
-            if ($model->load(Yii::$app->request->post())) {
-                if ($model->value)
-                    return $this->asJson(['success' => true, 'type' => $model->getTypeByValue($model->value)]);
-                else
-                    return $this->asJson(['success' => false]);
+            if (count($redirects) > 0) {
+                foreach ($redirects as $redirect) {
+                    $redirect = explode(";", $redirect);
+                    $data[] = [
+                        'request_url' => $redirect[0],
+                        'redirect_url' => $redirect[1],
+                        'code' => $redirect[2],
+                        'is_active' => '1',
+                    ];
+                }
             }
+
+            $model = new RedirectsImport();
+            if (count($data) > 0) {
+                if ($model->import($data)) {
+                    Yii::$app->getSession()->setFlash(
+                        'success',
+                        Yii::t(
+                            'app/modules/redirects',
+                            'OK! List of redirects successfully added.'
+                        )
+                    );
+                }
+            } else {
+                Yii::$app->getSession()->setFlash(
+                    'danger',
+                    Yii::t(
+                        'app/modules/redirects',
+                        'An error occurred while add list of redirects.'
+                    )
+                );
+            }
+
         } else {
-            if ($model->load(Yii::$app->request->post())) {
+            if ($model->load($post)) {
                 if($model->save()) {
                     Yii::$app->getSession()->setFlash(
                         'success',

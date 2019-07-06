@@ -38,9 +38,6 @@ class RedirectsImport extends Redirects
      */
     public function import($redirects)
     {
-
-        // [{"section":null,"request_url":"/some1-url","redirect_url":"/other2-url","code":"301","description":"","is_active":"1"}]
-
         $count_success = 0;
         $count_fails = 0;
         foreach ($redirects as $redirect) {

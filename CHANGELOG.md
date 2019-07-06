@@ -2,6 +2,7 @@ Changelog
 =========
  
 ## 1.0.1 (2019-07-06)
+ * Added list of redirects import
  * Update README.md
  * Added translations
  * Added component and autocheck

@@ -36,36 +36,3 @@ use wdmg\widgets\SelectInput;
     </div>
     <?php ActiveForm::end(); ?>
 </div>
-<?php $this->registerJs(<<< JS
-$(document).ready(function() {
-    function afterValidateAttribute(event, attribute, messages)
-    {
-        if (attribute.name == "value" && attribute.status == 1 && messages.length == 0) {
-            var form = $(event.target);
-            $.ajax({
-                    type: form.attr('method'),
-                    url: form.attr('action'),
-                    data: form.serializeArray(),
-                }
-            ).done(function(data) {
-                if(data.success) {
-                    if(data.type) {
-                        form.find('#redirects-type').val(data.type);
-                        form.find('#redirects-type').trigger('change');
-                    }
-                } else {
-                    form.find('#redirects-type').val("string");
-                    form.find('#redirects-type').trigger('change');
-                }
-                form.yiiActiveForm('validateAttribute', 'redirects-type');
-            }).fail(function () {
-                form.find('#redirects-type').val("");
-                form.find('#redirects-type').trigger('change');
-            });
-            return false; // prevent default form submission
-        }
-    }
-    $("#addOptionForm").on("afterValidateAttribute", afterValidateAttribute);
-});
-JS
-); ?>
