@@ -21,10 +21,6 @@ use yii\filters\AccessControl;
  */
 class RedirectsController extends Controller
 {
-    /**
-     * Autoload redirects status
-     */
-    private $hasAutoload = false;
 
     /**
      * {@inheritdoc}
@@ -35,7 +31,7 @@ class RedirectsController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'index' => ['get'],
+                    'index' => ['get', 'post'],
                     'view' => ['get'],
                     'delete' => ['post'],
                     'create' => ['get', 'post'],
@@ -77,6 +73,23 @@ class RedirectsController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->request->isAjax) {
+            if (Yii::$app->request->get('change') == "status") {
+                if (Yii::$app->request->post('id', null)) {
+                    $id = Yii::$app->request->post('id');
+                    $status = Yii::$app->request->post('value', 0);
+                    $model = $this->findModel(intval($id));
+                    if ($model) {
+                        $model->is_active = intval($status);
+                        if ($model->update())
+                            return true;
+                        else
+                            return false;
+                    }
+                }
+            }
+        }
+
         $searchModel = new RedirectsSearch();
         $importModel = new RedirectsImport();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -86,6 +99,7 @@ class RedirectsController extends Controller
             'importModel' => $importModel,
             'dataProvider' => $dataProvider,
             'redirectsCodes' => $searchModel->getRedirectsCodesList(),
+            'activeStatus' => $searchModel->getActiveStatusList(),
             'module' => $this->module
         ]);
     }
@@ -101,7 +115,8 @@ class RedirectsController extends Controller
         $model = $this->findModel($id);
         return $this->renderAjax('view', [
             'model' => $model,
-            'redirectsCodes' => $model->getRedirectsCodesList()
+            'redirectsCodes' => $model->getRedirectsCodesList(),
+            'activeStatus' => $model->getActiveStatusList(),
         ]);
     }
 
@@ -158,7 +173,8 @@ class RedirectsController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'redirectsCodes' => $model->getRedirectsCodesList()
+            'redirectsCodes' => $model->getRedirectsCodesList(),
+            'activeStatus' => $model->getActiveStatusList(),
         ]);
     }
 
@@ -177,7 +193,7 @@ class RedirectsController extends Controller
             return ActiveForm::validate($model);
         }
 
-        if ($model->load(Yii::$app->request->post()) && !$model->protected) {
+        if ($model->load(Yii::$app->request->post())) {
             if($model->save()) {
                 Yii::$app->getSession()->setFlash(
                     'success',
@@ -210,7 +226,8 @@ class RedirectsController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'redirectsCodes' => $model->getRedirectsCodesList()
+            'redirectsCodes' => $model->getRedirectsCodesList(),
+            'activeStatus' => $model->getActiveStatusList(),
         ]);
     }
 
