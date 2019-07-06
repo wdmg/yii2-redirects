@@ -17,8 +17,8 @@ class RedirectsSearch extends Redirects
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['section', 'request_url', 'redirect_url', 'code', 'description', 'is_active', 'created_at', 'updated_at'], 'safe'],
+            [['id', 'code'], 'integer'],
+            [['section', 'request_url', 'redirect_url', 'description', 'is_active', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
