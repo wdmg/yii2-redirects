@@ -91,6 +91,37 @@ class Redirects extends ActiveRecord
         ];
     }
 
+    /**
+     * Set (save) or update redirect
+     *
+     * @param string $section
+     * @param string $request_url
+     * @param string $redirect_url
+     * @param integer $code
+     * @param string $description
+     * @param boolean $is_active
+     *
+     * @return boolean
+     */
+    public static function setRedirect($section = null, $request_url, $redirect_url, $code, $description = null, $is_active = false)
+    {
+
+        if (!is_null($section) && !is_null($request_url))
+            $model = static::findOne(['section' => $section, 'request_url' => $request_url]);
+        elseif (!is_null($request_url))
+            $model = static::findOne(['request_url' => $request_url]);
+        else
+            $model = new static();
+
+        $model->section = trim($section);
+        $model->request_url = trim($request_url);
+        $model->redirect_url = trim($redirect_url);
+        $model->code = intval($code);
+        $model->description = strval($description);
+        $model->is_active = boolval($is_active);
+        return $model->save();
+    }
+
     public function getRedirectsCodesList($addAllLabel = true) {
 
         $items = [];
