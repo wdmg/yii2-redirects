@@ -3,6 +3,7 @@ Changelog
  
 ## 1.0.1 (2019-07-06)
  * Update README.md
+ * Added translations
  * Added component and autocheck
  * Added views
  * Models, migrations and controllers fixing
