@@ -260,7 +260,7 @@ class RedirectsController extends Controller
                 'danger',
                 Yii::t(
                     'app/modules/redirects',
-                    'An error occurred while updating a {code}-redirect for `{request_url}` to `{redirect_url}`.',
+                    'An error occurred while deleting a {code}-redirect for `{request_url}` to `{redirect_url}`.',
                     [
                         'code' => $model->code,
                         'request_url' => $model->request_url,

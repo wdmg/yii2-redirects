@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model wdmg\users\models\Redirects */
 
-$this->title = Yii::t('app/modules/redirects', 'Create option');
+$this->title = Yii::t('app/modules/redirects', 'Create redirect');
 $this->params['breadcrumbs'][] = ['label' => $this->context->module->name, 'url' => ['redirects/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
