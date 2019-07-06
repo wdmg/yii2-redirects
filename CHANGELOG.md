@@ -1,6 +1,13 @@
 Changelog
 =========
  
+## 1.0.1 (2019-07-06)
+ * Update README.md
+ * Added component and autocheck
+ * Added views
+ * Models, migrations and controllers fixing
+ * Added common models for import and search
+ 
 ## 1.0.0 (2019-07-05)
  * Added base model
  * Added console controller
