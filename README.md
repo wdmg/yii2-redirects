@@ -1,8 +1,8 @@
-[![Progress](https://img.shields.io/badge/required-Yii2_v2.0.13-blue.svg)](https://packagist.org/packages/yiisoft/yii2)
+[![Yii2](https://img.shields.io/badge/required-Yii2_v2.0.20-blue.svg)](https://packagist.org/packages/yiisoft/yii2)
 [![Github all releases](https://img.shields.io/github/downloads/wdmg/yii2-redirects/total.svg)](https://GitHub.com/wdmg/yii2-redirects/releases/)
-[![GitHub version](https://badge.fury.io/gh/wdmg/yii2-redirects.svg)](https://github.com/wdmg/yii2-redirects)
-![Progress](https://img.shields.io/badge/progress-in_development-red.svg)
+![Progress](https://img.shields.io/badge/progress-ready_to_use-green.svg)
 [![GitHub license](https://img.shields.io/github/license/wdmg/yii2-redirects.svg)](https://github.com/wdmg/yii2-redirects/blob/master/LICENSE)
+![GitHub release](https://img.shields.io/github/release/wdmg/yii2-redirects/all.svg)
 
 # Yii2 Redirects Module
 Redirects module for Yii2
@@ -68,6 +68,6 @@ Use the `Module::dashboardNavItems()` method of the module to generate a navigat
         ]);
     ?>
 
-# Status and version [in progress development]
+# Status and version [ready to use]
 * v.1.0.1 - Added views, common models for import and search
 * v.1.0.0 - Added base model, console controller, bootstrap, base module, translations and migrations
