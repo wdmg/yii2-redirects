@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Tabs::widget([
         'items' => [
             [
-                'label' => Yii::t('app/modules/redirects', 'One redirect'),
+                'label' => Yii::t('app/modules/redirects', 'Single add'),
                 'content' => $this->render('_form', [
                     'model' => $model,
                     'redirectsCodes' => $redirectsCodes,
@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]),
                 'active' => true
             ], [
-                'label' => Yii::t('app/modules/redirects', 'List of redirects'),
+                'label' => Yii::t('app/modules/redirects', 'Bulk add'),
                 'content' => $this->render('_list', [
                     'model' => $model,
                     'redirectsCodes' => $redirectsCodes,

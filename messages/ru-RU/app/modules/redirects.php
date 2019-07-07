@@ -43,8 +43,8 @@ return [
     'Delete' => 'Удалить',
     'Redirects list' => 'Список перенаправлений',
 
-    'One redirect' => 'Одно перенаправление',
-    'List of redirects' => 'Перенаправления по списку',
+    'Single add' => 'Одиночное добавление',
+    'Bulk add' => 'Массовое добавление',
 
     'Please, insert list of redirection one by new line. Format: <em class="text-danger">request URL;redirect URL;Response code</em>' => 'Пожалуйста, введите список перенаправлений каждый с новой строки. В формате: <em class="text-danger">URL запроса;URL перенаправления;Код ответа</em>',
 
