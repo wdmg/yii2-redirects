@@ -53,7 +53,8 @@ use yii\widgets\DetailView;
                 'data-dismiss' => 'modal'
         ]); ?>
         <?= Html::a(Yii::t('app/modules/redirects', 'Edit'), ['update', 'id' => $model->id], [
-            'class' => 'btn btn-primary pull-right'
+            'class' => 'btn btn-primary pull-right',
+            'data-pjax' => '0'
         ]); ?>
         <?= Html::a(Yii::t('app/modules/redirects', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger pull-right',

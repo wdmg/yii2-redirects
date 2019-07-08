@@ -29,7 +29,7 @@ class Redirects extends ActiveRecord
 
     public $import;
     public $list;
-    public $codeRange = [300, 301, 302, 303, 307, 308];
+    public static $codeRange = [300, 301, 302, 303, 307, 308];
 
     /**
      * {@inheritdoc}
@@ -66,7 +66,7 @@ class Redirects extends ActiveRecord
             [['request_url'], 'unique'],
             [['description'], 'string'],
             [['code'], 'integer'],
-            [['code'], 'in', 'range' => $this->codeRange],
+            [['code'], 'in', 'range' => self::$codeRange],
             [['section'], 'string', 'min' => 3, 'max' => 128],
             [['description'], 'string', 'max' => 255],
             [['is_active'], 'boolean'],

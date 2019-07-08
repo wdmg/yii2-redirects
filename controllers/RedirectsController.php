@@ -15,6 +15,7 @@ use yii\web\UploadedFile;
 use yii\widgets\ActiveForm;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\httpclient\Client;
 
 /**
  * RedirectsController implements the CRUD actions for Settings model.
@@ -339,6 +340,50 @@ class RedirectsController extends Controller
             }
         }
         return $this->redirect(['index']);
+    }
+
+    /**
+     * Testing API.
+     * @return mixed
+     */
+    public function actionTest()
+    {
+        $model = new \yii\base\DynamicModel(['request_url', 'redirect_url', 'code', 'status']);
+
+        $acceptResponses = [
+            'json' => 'application/json',
+            'xml' => 'application/xml'
+        ];
+
+        $model->addRule(['request_url', 'redirect_url', 'code'], 'required');
+        $model->addRule(['request_url', 'redirect_url'], 'string', ['min' => 3, 'max' => 128]);
+        $model->addRule(['code'], 'integer');
+        $model->addRule(['code'], 'in', ['range' => Redirects::$codeRange]);
+        $model->addRule(['status'], 'boolean');
+
+        $model->setAttributes([
+            'request_url' => strval(Yii::$app->request->get('request_url')),
+            'redirect_url' => strval(Yii::$app->request->get('redirect_url')),
+            'code' => intval(Yii::$app->request->get('code')),
+            'status' => false,
+        ]);
+
+        if ($model->validate()) {
+            $client = new Client(['baseUrl' => \yii\helpers\Url::base(true)]);
+            $response = $client->get($model->request_url)->send();
+            if ($response->isOk) {
+                if ((Yii::$app->urlManager->createAbsoluteUrl($model->redirect_url) == $response->headers["location"])) {
+                    if ((intval($model->code) == intval($response->headers["http-code"]))) {
+                        $model->status = true;
+                    }
+                }
+            }
+        }
+
+        return $this->renderAjax('test', [
+            'model' => $model,
+            'redirectsCodes' => Redirects::getRedirectsCodesList(),
+        ]);
     }
 
     /**

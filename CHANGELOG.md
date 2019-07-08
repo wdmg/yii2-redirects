@@ -1,6 +1,10 @@
 Changelog
 =========
  
+## 1.0.2 (2019-07-08)
+ * Added test interface for redirects
+ * Bugfix
+ 
 ## 1.0.1 (2019-07-06)
  * Added list of redirects import
  * Update README.md

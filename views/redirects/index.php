@@ -112,8 +112,19 @@ JS
                             'data-id' => $key,
                             'data-pjax' => '1'
                         ]);
-                    }
+                    },
+                    'play' => function($url, $data, $key) {
+                        return Html::a('Test <span class="glyphicon glyphicon-play"></span>', Url::to(['redirects/test', 'request_url' => $data['request_url'], 'redirect_url' => $data['redirect_url'], 'code' => $data['code']]), [
+                            'title' => Yii::t('app/modules/redirects', 'Test redirect'),
+                            'data-toggle' => 'modal',
+                            'data-target' => '#redirectTest',
+                            'class' => 'text-success redirect-test-link',
+                            'data-id' => $key,
+                            'data-pjax' => '1'
+                        ]);
+                    },
                 ],
+                'template' => '{view}&nbsp;{update}&nbsp;{delete}&nbsp;{refresh}<br/>{play}'
             ]
         ],
         'rowOptions' => function ($model, $index, $widget, $grid) {
@@ -167,12 +178,26 @@ $('body').delegate('.redirect-details-link', 'click', function(event) {
     $.get(
         $(this).attr('href'),
         function (data) {
-            var body = $(data).remove('.modal-footer').html();
-            var footer = $(data).find('.modal-footer').html();
-            $('#redirectDetails .modal-body').html(body);
-            $('#redirectDetails .modal-body').find('.modal-footer').remove();
-            $('#redirectDetails .modal-footer').html(footer);
+            $('#redirectDetails .modal-body').html($(data).remove('.modal-footer'));
+            if ($(data).find('.modal-footer').length > 0) {
+                $('#redirectDetails').find('.modal-footer').remove();
+                $('#redirectDetails .modal-content').append($(data).find('.modal-footer'));
+            }
             $('#redirectDetails').modal();
+        } 
+    );
+});
+$('body').delegate('.redirect-test-link', 'click', function(event) {
+    event.preventDefault();
+    $.get(
+        $(this).attr('href'),
+        function (data) {
+            $('#redirectTest .modal-body').html($(data).remove('.modal-footer'));
+            if ($(data).find('.modal-footer').length > 0) {
+                $('#redirectTest').find('.modal-footer').remove();
+                $('#redirectTest .modal-content').append($(data).find('.modal-footer'));
+            }
+            $('#redirectTest').modal();
         }  
     );
 });
@@ -194,6 +219,17 @@ JS
         'show' => false
     ]
 ]); ?>
+<?php Modal::end(); ?>
+
+<?php Modal::begin([
+    'id' => 'redirectTest',
+    'header' => '<h4 class="modal-title">'.Yii::t('app/modules/redirects', 'Test redirect').'</h4>',
+    'footer' => '<a href="#" class="btn btn-default pull-left" data-dismiss="modal">'.Yii::t('app/modules/redirects', 'Close').'</a>',
+    'clientOptions' => [
+        'show' => false
+    ]
+]); ?>
+Loading...
 <?php Modal::end(); ?>
 
 <?php echo $this->render('../_debug'); ?>

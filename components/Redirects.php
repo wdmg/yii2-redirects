@@ -7,7 +7,7 @@ namespace wdmg\redirects\components;
  * Yii2 Redirects
  *
  * @category        Component
- * @version         1.0.1
+ * @version         1.0.2
  * @author          Alexsander Vyshnyvetskyy <alex.vyshnyvetskyy@gmail.com>
  * @link            https://github.com/wdmg/yii2-redirects
  * @copyright       Copyright (c) 2019 W.D.M.Group, Ukraine
@@ -47,7 +47,7 @@ class Redirects extends Component
     {
         $this->request_url = $url;
         if ($this->model && $this->request_url) {
-            $redirect = $this->model::findOne(['request_url' => $this->request_url]);
+            $redirect = $this->model::findOne(['request_url' => $this->request_url, 'is_active' => true]);
             if ($redirect !== null) {
                 Yii::$app->response->redirect($redirect->redirect_url, $redirect->code);
             }
