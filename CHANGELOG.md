@@ -1,6 +1,9 @@
 Changelog
 =========
  
+## 1.0.3 (2019-07-13)
+ * Added validation rules
+ 
 ## 1.0.2 (2019-07-08)
  * Added test interface for redirects
  * Bugfix

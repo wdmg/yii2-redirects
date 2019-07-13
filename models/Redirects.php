@@ -9,6 +9,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\base\InvalidArgumentException;
 use yii\behaviors\TimestampBehavior;
+use yii\httpclient\Client;
 
 /**
  * This is the model class for table "{{%redirects}}".
@@ -63,7 +64,10 @@ class Redirects extends ActiveRecord
     {
         return [
             [['request_url', 'redirect_url', 'code'], 'required'],
-            [['request_url'], 'unique'],
+            ['request_url', 'checkRequestUrl'],
+            ['redirect_url', 'checkRedirectUrl'],
+            [['request_url', 'redirect_url'], 'match', 'pattern' => '/^\/admin.*/', 'not' => true, 'message' => Yii::t('app/modules/redirects','URL starting from «/admin» not allowed.')],
+            [['request_url', 'redirect_url'], 'match', 'pattern' => '/^(?!www\.|(?:http|ftp)s?:\/\/|[A-Za-z]:\\\\|\/\/).*/', 'message' => Yii::t('app/modules/redirects','URL must be a relative.')],
             [['description'], 'string'],
             [['code'], 'integer'],
             [['code'], 'in', 'range' => self::$codeRange],
@@ -72,6 +76,36 @@ class Redirects extends ActiveRecord
             [['is_active'], 'boolean'],
             [['created_at', 'updated_at', 'list'], 'safe'],
         ];
+    }
+
+    public function checkRequestUrl($attribute, $params, $validator) {
+        if ($this->request_url) {
+            if ($this->request_url === $this->redirect_url)
+                $this->addError('request_url', Yii::t('app/modules/redirects', 'The request URL must not coincide with redirect URL.'));
+
+            if (self::findOne(['request_url' => $this->request_url]))
+                $this->addError('request_url', Yii::t('app/modules/redirects', 'The request URL already exist.'));
+
+            $client = new Client(['baseUrl' => \yii\helpers\Url::base(true)]);
+            $response = $client->get($this->request_url)->send();
+            if (!$response->isOk || !intval($response->headers["http-code"]) == 200) {
+                $this->addError('request_url', Yii::t('app/modules/redirects', 'The requested URL must be exist and returning 200 HTTP code.'));
+            }
+        }
+    }
+
+    public function checkRedirectUrl($attribute, $params, $validator) {
+        if ($this->redirect_url) {
+
+            if ($this->redirect_url === $this->request_url)
+                $this->addError('redirect_url', Yii::t('app/modules/redirects', 'The redirect URL must not coincide with request URL.'));
+
+            $client = new Client(['baseUrl' => \yii\helpers\Url::base(true)]);
+            $response = $client->get($this->redirect_url)->send();
+            if (!$response->isOk || !intval($response->headers["http-code"]) == 200) {
+                $this->addError('redirect_url', Yii::t('app/modules/redirects', 'The redirect URL must be exist and returning 200 HTTP code.'));
+            }
+        }
     }
 
     /**

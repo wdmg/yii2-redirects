@@ -71,6 +71,14 @@ return [
     'OK! List of redirects successfully added.' => 'OK! Список перенаправлений успешно добавлен.',
     'An error occurred while add list of redirects.' => 'Произошла ошибка при добавлении списка перенаправлений.',
 
+    'URL starting from «/admin» not allowed.' => 'URL, начинающийся с «/ admin», не разрешен.',
+    'URL must be a relative.' => 'URL должен быть относительным.',
+    'The request URL must not coincide with redirect URL.' => 'URL-адрес запроса не должен совпадать с URL-адресом перенаправления',
+    'The request URL already exist.' => 'URL запроса уже существует.',
+    'The requested URL must be exist and returning 200 HTTP code.' => 'URL-адрес запроса должен существовать и возвращать 200 HTTP-код.',
+    'The redirect URL must not coincide with request URL.' => 'URL перенаправления не должен совпадать с URL запроса.',
+    'The redirect URL must be exist and returning 200 HTTP code.' => 'URL перенаправления должен существовать и возвращать 200 HTTP-код.',
+
 ];
 
 ?>

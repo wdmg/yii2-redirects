@@ -129,84 +129,92 @@ class RedirectsController extends Controller
     public function actionCreate()
     {
         $model = new Redirects();
-        $model->code = 301;
-        $model->is_active = true;
-        $post = Yii::$app->request->post();
-        if (!is_null($post["Redirects"]["list"])) {
-            $data = array();
-            $redirects = explode("\r\n", $post["Redirects"]["list"]);
 
-            if (count($redirects) > 0) {
-                foreach ($redirects as $redirect) {
-                    $redirect = explode(";", $redirect);
-                    $data[] = [
-                        'request_url' => $redirect[0],
-                        'redirect_url' => $redirect[1],
-                        'code' => $redirect[2],
-                        'is_active' => '1',
-                    ];
-                }
-            }
-
-            $model = new RedirectsImport();
-            if (count($data) > 0) {
-                if ($model->import($data)) {
-                    Yii::$app->getSession()->setFlash(
-                        'success',
-                        Yii::t(
-                            'app/modules/redirects',
-                            'OK! List of redirects successfully added.'
-                        )
-                    );
-                }
-            } else {
-                Yii::$app->getSession()->setFlash(
-                    'danger',
-                    Yii::t(
-                        'app/modules/redirects',
-                        'An error occurred while add list of redirects.'
-                    )
-                );
-            }
-
+        // Validate any AJAX requests fired by the form
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
         } else {
-            if ($model->load($post)) {
-                if($model->save()) {
-                    Yii::$app->getSession()->setFlash(
-                        'success',
-                        Yii::t(
-                            'app/modules/redirects',
-                            'OK! Redirect ({code}) for `{request_url}` to `{redirect_url}` successfully added.',
-                            [
-                                'code' => $model->code,
-                                'request_url' => $model->request_url,
-                                'redirect_url' => $model->redirect_url,
-                            ]
-                        )
-                    );
-                    return $this->redirect(['index']);
+            // or process create form
+            $model->code = 301;
+            $model->is_active = true;
+            $post = Yii::$app->request->post();
+            if (!is_null($post["Redirects"]["list"])) {
+                $data = array();
+                $redirects = explode("\r\n", $post["Redirects"]["list"]);
+
+                if (count($redirects) > 0) {
+                    foreach ($redirects as $redirect) {
+                        $redirect = explode(";", $redirect);
+                        $data[] = [
+                            'request_url' => $redirect[0],
+                            'redirect_url' => $redirect[1],
+                            'code' => $redirect[2],
+                            'is_active' => '1',
+                        ];
+                    }
+                }
+
+                $model = new RedirectsImport();
+                if (count($data) > 0) {
+                    if ($model->import($data)) {
+                        Yii::$app->getSession()->setFlash(
+                            'success',
+                            Yii::t(
+                                'app/modules/redirects',
+                                'OK! List of redirects successfully added.'
+                            )
+                        );
+                    }
                 } else {
                     Yii::$app->getSession()->setFlash(
                         'danger',
                         Yii::t(
                             'app/modules/redirects',
-                            'An error occurred while adding a {code}-redirect for `{request_url}` to `{redirect_url}`.',
-                            [
-                                'code' => $model->code,
-                                'request_url' => $model->request_url,
-                                'redirect_url' => $model->redirect_url,
-                            ]
+                            'An error occurred while add list of redirects.'
                         )
                     );
                 }
-            }
-        }
 
-        return $this->render('create', [
-            'model' => $model,
-            'redirectsCodes' => $model->getRedirectsCodesList(),
-            'activeStatus' => $model->getActiveStatusList(),
-        ]);
+            } else {
+                if ($model->load($post)) {
+                    if($model->save()) {
+                        Yii::$app->getSession()->setFlash(
+                            'success',
+                            Yii::t(
+                                'app/modules/redirects',
+                                'OK! Redirect ({code}) for `{request_url}` to `{redirect_url}` successfully added.',
+                                [
+                                    'code' => $model->code,
+                                    'request_url' => $model->request_url,
+                                    'redirect_url' => $model->redirect_url,
+                                ]
+                            )
+                        );
+                        return $this->redirect(['index']);
+                    } else {
+                        Yii::$app->getSession()->setFlash(
+                            'danger',
+                            Yii::t(
+                                'app/modules/redirects',
+                                'An error occurred while adding a {code}-redirect for `{request_url}` to `{redirect_url}`.',
+                                [
+                                    'code' => $model->code,
+                                    'request_url' => $model->request_url,
+                                    'redirect_url' => $model->redirect_url,
+                                ]
+                            )
+                        );
+                    }
+                }
+            }
+
+            return $this->render('create', [
+                'model' => $model,
+                'redirectsCodes' => $model->getRedirectsCodesList(),
+                'activeStatus' => $model->getActiveStatusList(),
+            ]);
+        }
     }
 
     /**
