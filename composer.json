@@ -4,7 +4,7 @@
   "keywords": ["yii2", "yii2-redirects", "redirects", "redirect", "wdmg"],
   "type": "yii2-extension",
   "license": "MIT",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "homepage": "https://github.com/wdmg/yii2-redirects",
   "support": {
     "source": "https://github.com/wdmg/yii2-redirects",
@@ -29,6 +29,12 @@
   "autoload": {
     "psr-4": {
       "wdmg\\redirects\\": ""
+    }
+  },
+  "extra": {
+    "options": {
+      "routePrefix": "admin",
+      "autocheck": true
     }
   }
 }

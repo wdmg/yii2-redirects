@@ -7,7 +7,7 @@ namespace wdmg\redirects\components;
  * Yii2 Redirects
  *
  * @category        Component
- * @version         1.0.3
+ * @version         1.0.4
  * @author          Alexsander Vyshnyvetskyy <alex.vyshnyvetskyy@gmail.com>
  * @link            https://github.com/wdmg/yii2-redirects
  * @copyright       Copyright (c) 2019 W.D.M.Group, Ukraine

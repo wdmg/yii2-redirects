@@ -1,6 +1,9 @@
 Changelog
 =========
  
+## 1.0.4 (2019-07-16)
+ * Added extra options to composer.json and navbar menu icon
+ 
 ## 1.0.3 (2019-07-13)
  * Added validation rules
  
