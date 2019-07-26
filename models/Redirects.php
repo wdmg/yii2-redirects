@@ -86,11 +86,6 @@ class Redirects extends ActiveRecord
             if (self::findOne(['request_url' => $this->request_url]))
                 $this->addError('request_url', Yii::t('app/modules/redirects', 'The request URL already exist.'));
 
-            $client = new Client(['baseUrl' => \yii\helpers\Url::base(true)]);
-            $response = $client->get($this->request_url)->send();
-            if (!$response->isOk || !intval($response->headers["http-code"]) == 200) {
-                $this->addError('request_url', Yii::t('app/modules/redirects', 'The requested URL must be exist and returning 200 HTTP code.'));
-            }
         }
     }
 
