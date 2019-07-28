@@ -69,6 +69,6 @@ Use the `Module::dashboardNavItems()` method of the module to generate a navigat
     ?>
 
 # Status and version [ready to use]
+* v.1.0.5 - Fixing redirect component
 * v.1.0.4 - Added extra options to composer.json and navbar menu icon
 * v.1.0.3 - Added validation rules
-* v.1.0.2 - Added test interface for redirects
