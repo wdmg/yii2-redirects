@@ -2,7 +2,7 @@ Changelog
 =========
  
 ## 1.0.5 (2019-07-28)
- * Fixing redirect component
+ * Fixing redirects model rules and redirect component
  
 ## 1.0.4 (2019-07-16)
  * Added extra options to composer.json and navbar menu icon

@@ -64,7 +64,7 @@ class Redirects extends ActiveRecord
     {
         return [
             [['request_url', 'redirect_url', 'code'], 'required'],
-            ['request_url', 'checkRequestUrl'],
+            ['request_url', 'checkRequestUrl', 'on' => 'create'],
             ['redirect_url', 'checkRedirectUrl'],
             [['request_url', 'redirect_url'], 'match', 'pattern' => '/^\/admin.*/', 'not' => true, 'message' => Yii::t('app/modules/redirects','URL starting from «/admin» not allowed.')],
             [['request_url', 'redirect_url'], 'match', 'pattern' => '/^(?!www\.|(?:http|ftp)s?:\/\/|[A-Za-z]:\\\\|\/\/).*/', 'message' => Yii::t('app/modules/redirects','URL must be a relative.')],
