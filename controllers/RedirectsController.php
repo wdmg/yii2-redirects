@@ -139,7 +139,7 @@ class RedirectsController extends Controller
             $model->code = 301;
             $model->is_active = true;
             $post = Yii::$app->request->post();
-            if (!is_null($post["Redirects"]["list"])) {
+            if (isset($post["Redirects"]["list"])) {
                 $data = array();
                 $redirects = explode("\r\n", $post["Redirects"]["list"]);
 
