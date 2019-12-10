@@ -15,7 +15,7 @@ use wdmg\widgets\SelectInput;
     ]); ?>
     <?= $form->field($model, 'request_url')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'redirect_url')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'code')->widget(SelectInput::className(), [
+    <?= $form->field($model, 'code')->widget(SelectInput::class, [
         'items' => $redirectsCodes,
         'options' => [
             'class' => 'form-control'
@@ -23,7 +23,7 @@ use wdmg\widgets\SelectInput;
     ]) ?>
     <?= $form->field($model, 'section')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'description')->textarea(['rows' => 3]) ?>
-    <?= $form->field($model, 'is_active')->widget(SelectInput::className(), [
+    <?= $form->field($model, 'is_active')->widget(SelectInput::class, [
         'items' => $activeStatus,
         'options' => [
             'class' => 'form-control'

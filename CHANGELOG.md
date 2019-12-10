@@ -1,6 +1,9 @@
 Changelog
 =========
  
+## 1.0.6 (2019-12-10)
+ * Fixed deprecated class declaration
+ 
 ## 1.0.5 (2019-07-28)
  * Fixing redirects model rules and redirect component
  

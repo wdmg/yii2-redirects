@@ -6,7 +6,7 @@ namespace wdmg\redirects;
  * Yii2 Redirects
  *
  * @category        Module
- * @version         1.0.5
+ * @version         1.0.6
  * @author          Alexsander Vyshnyvetskyy <alex.vyshnyvetskyy@gmail.com>
  * @link            https://github.com/wdmg/yii2-redirects
  * @copyright       Copyright (c) 2019 W.D.M.Group, Ukraine
@@ -51,7 +51,7 @@ class Module extends BaseModule
     /**
      * @var string the module version
      */
-    private $version = "1.0.5";
+    private $version = "1.0.6";
 
     /**
      * @var integer, priority of initialization
@@ -103,7 +103,7 @@ class Module extends BaseModule
 
         // Check for redirection
         if (!($app instanceof \yii\console\Application) && $this->autocheck && $this->module && ($app->redirects instanceof \yii\base\Component)) {
-            \yii\base\Event::on(\yii\base\Controller::className(), \yii\base\Controller::EVENT_BEFORE_ACTION, function ($event) {
+            \yii\base\Event::on(\yii\base\Controller::class, \yii\base\Controller::EVENT_BEFORE_ACTION, function ($event) {
                 $url = Yii::$app->request->getUrl();
                 Yii::$app->redirects->check($url);
             });
