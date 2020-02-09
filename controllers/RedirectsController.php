@@ -364,7 +364,7 @@ class RedirectsController extends Controller
         ];
 
         $model->addRule(['request_url', 'redirect_url', 'code'], 'required');
-        $model->addRule(['request_url', 'redirect_url'], 'string', ['min' => 3, 'max' => 128]);
+        $model->addRule(['request_url', 'redirect_url'], 'string', ['min' => 1, 'max' => 2048]);
         $model->addRule(['code'], 'integer');
         $model->addRule(['code'], 'in', ['range' => Redirects::$codeRange]);
         $model->addRule(['status'], 'boolean');
@@ -380,8 +380,19 @@ class RedirectsController extends Controller
             $client = new Client(['baseUrl' => \yii\helpers\Url::base(true)]);
             $response = $client->get($model->request_url)->send();
             if ($response->isOk) {
-                if ((Yii::$app->urlManager->createAbsoluteUrl($model->redirect_url) == $response->headers["location"])) {
-                    if ((intval($model->code) == intval($response->headers["http-code"]))) {
+
+                if (filter_var($model->redirect_url, FILTER_VALIDATE_URL) == false)
+                    $redirect_url = Yii::$app->urlManager->createAbsoluteUrl($model->redirect_url);
+                else
+                    $redirect_url = $model->redirect_url;
+
+                /*var_dump(preg_match('/^(?!www\.|(?:http|ftp)s?:\/\/|[A-Za-z]:\\\\|\/\/).\*\/iu', $model->redirect_url));
+                var_dump($redirect_url);
+                var_dump($response->headers["location"]);
+                die();*/
+
+                if ($redirect_url == $response->headers["location"]) {
+                    if (intval($model->code) == intval($response->headers["http-code"])) {
                         $model->status = true;
                     }
                 }

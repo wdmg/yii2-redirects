@@ -85,7 +85,8 @@ class Redirects extends ActiveRecord
             [['code'], 'integer'],
             [['code'], 'in', 'range' => self::$codeRange],
             [['section'], 'string', 'min' => 3, 'max' => 128],
-            [['description'], 'string', 'max' => 255],
+            [['description'], 'string', 'max' => 2048],
+            [['request_url', 'redirect_url'], 'string', 'max' => 2048],
             [['is_active'], 'boolean'],
             [['created_at', 'updated_at', 'list'], 'safe'],
         ];
@@ -181,7 +182,7 @@ class Redirects extends ActiveRecord
         return $model->save();
     }
 
-    public function getRedirectsCodesList($addAllLabel = true) {
+    public static function getRedirectsCodesList($addAllLabel = true) {
 
         $items = [];
         if ($addAllLabel)
