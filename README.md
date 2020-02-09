@@ -39,6 +39,7 @@ To add a module to the project, add the following data in your configuration fil
         'redirects' => [
             'class' => 'wdmg\redirects\Module',
             'autocheck' => true, // Autocheck requested URL
+            'allowExternal' => false, // Allow external URL for add
             'routePrefix' => 'admin'
         ],
         ...
@@ -69,6 +70,6 @@ Use the `Module::dashboardNavItems()` method of the module to generate a navigat
     ?>
 
 # Status and version [ready to use]
+* v.1.0.7 - Added allowExternal option for add absolute URL
 * v.1.0.6 - Fixed deprecated class declaration
 * v.1.0.5 - Fixing redirects model rules and redirect component
-* v.1.0.4 - Added extra options to composer.json and navbar menu icon

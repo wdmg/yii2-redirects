@@ -1,6 +1,9 @@
 Changelog
 =========
  
+## 1.0.7 (2020-02-09)
+ * Added allowExternal option for add absolute URL
+ 
 ## 1.0.6 (2019-12-10)
  * Fixed deprecated class declaration
  

@@ -49,6 +49,12 @@ class Module extends BaseModule
     public $autocheck = true;
 
     /**
+     * @var boolean, the flag for allow external URL for add
+     * requested URL for redirection
+     */
+    public $allowExternal = false;
+
+    /**
      * @var string the module version
      */
     private $version = "1.0.6";

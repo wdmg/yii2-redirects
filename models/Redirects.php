@@ -31,6 +31,19 @@ class Redirects extends ActiveRecord
     public $import;
     public $list;
     public static $codeRange = [300, 301, 302, 303, 307, 308];
+    private $module;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function init()
+    {
+        parent::init();
+
+        if (!($this->module = Yii::$app->getModule('admin/redirects')))
+            $this->module = Yii::$app->getModule('redirects');
+
+    }
 
     /**
      * {@inheritdoc}
@@ -62,12 +75,12 @@ class Redirects extends ActiveRecord
      */
     public function rules()
     {
-        return [
+        $rules = [
             [['request_url', 'redirect_url', 'code'], 'required'],
             ['request_url', 'checkRequestUrl', 'on' => 'create'],
             ['redirect_url', 'checkRedirectUrl'],
             [['request_url', 'redirect_url'], 'match', 'pattern' => '/^\/admin.*/', 'not' => true, 'message' => Yii::t('app/modules/redirects','URL starting from «/admin» not allowed.')],
-            [['request_url', 'redirect_url'], 'match', 'pattern' => '/^(?!www\.|(?:http|ftp)s?:\/\/|[A-Za-z]:\\\\|\/\/).*/', 'message' => Yii::t('app/modules/redirects','URL must be a relative.')],
+            [['request_url'], 'match', 'pattern' => '/^(?!www\.|(?:http|ftp)s?:\/\/|[A-Za-z]:\\\\|\/\/).*/', 'message' => Yii::t('app/modules/redirects','URL must be a relative.')],
             [['description'], 'string'],
             [['code'], 'integer'],
             [['code'], 'in', 'range' => self::$codeRange],
@@ -76,6 +89,14 @@ class Redirects extends ActiveRecord
             [['is_active'], 'boolean'],
             [['created_at', 'updated_at', 'list'], 'safe'],
         ];
+
+        if (!is_null($this->module->allowExternal)) {
+            if (!$this->module->allowExternal) {
+                $rules[] = [['redirect_url'], 'match', 'pattern' => '/^(?!www\.|(?:http|ftp)s?:\/\/|[A-Za-z]:\\\\|\/\/).*/', 'message' => Yii::t('app/modules/redirects','URL must be a relative.')];
+            }
+        }
+
+        return $rules;
     }
 
     public function checkRequestUrl($attribute, $params, $validator) {
