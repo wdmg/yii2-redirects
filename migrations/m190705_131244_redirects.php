@@ -21,15 +21,15 @@ class m190705_131244_redirects extends Migration
         $this->createTable('{{%redirects}}', [
             'id' => $this->primaryKey(),
             'section' => $this->string(128)->null(),
-            'request_url' => $this->string(2048)->unique()->notNull(),
-            'redirect_url' => $this->string(2048)->notNull(),
+            'request_url' => $this->string(1024)->unique()->notNull(),
+            'redirect_url' => $this->string(1024)->notNull(),
             'code' => $this->integer(3)->notNull(),
             'description' => $this->string(255)->notNull(),
             'is_active' => $this->boolean()->defaultValue(true),
             'created_at' => $this->dateTime()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
             'updated_at' => $this->datetime()->defaultExpression('CURRENT_TIMESTAMP'),
         ], $tableOptions);
-        $this->createIndex('{{%idx-redirects-urls}}', '{{%redirects}}', ['request_url', 'redirect_url', 'code', 'is_active']);
+        $this->createIndex('{{%idx-redirects-urls}}', '{{%redirects}}', ['request_url(255)', 'redirect_url(255)', 'code', 'is_active']);
 
     }
 
