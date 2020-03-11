@@ -70,6 +70,7 @@ Use the `Module::dashboardNavItems()` method of the module to generate a navigat
     ?>
 
 # Status and version [ready to use]
+* v.1.0.8 - Migrations bugfix
 * v.1.0.7 - Added allowExternal option for add absolute URL
 * v.1.0.6 - Fixed deprecated class declaration
 * v.1.0.5 - Fixing redirects model rules and redirect component

@@ -1,6 +1,9 @@
 Changelog
 =========
  
+## 1.0.8 (2020-03-11)
+ * Migrations bugfix
+ 
 ## 1.0.7 (2020-02-09)
  * Added allowExternal option for add absolute URL
  
