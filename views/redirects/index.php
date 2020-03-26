@@ -132,6 +132,21 @@ JS
                 return ['class' => 'changed success'];
             }
         },
+        'pager' => [
+            'options' => [
+                'class' => 'pagination',
+            ],
+            'maxButtonCount' => 5,
+            'activePageCssClass' => 'active',
+            'prevPageCssClass' => '',
+            'nextPageCssClass' => '',
+            'firstPageCssClass' => 'previous',
+            'lastPageCssClass' => 'next',
+            'firstPageLabel' => Yii::t('app/modules/redirects', 'First page'),
+            'lastPageLabel'  => Yii::t('app/modules/redirects', 'Last page'),
+            'prevPageLabel'  => Yii::t('app/modules/redirects', '&larr; Prev page'),
+            'nextPageLabel'  => Yii::t('app/modules/redirects', 'Next page &rarr;')
+        ],
     ]); ?>
     <hr/>
     <div>
