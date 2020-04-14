@@ -29,8 +29,15 @@ class m190705_131244_redirects extends Migration
             'created_at' => $this->dateTime()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
             'updated_at' => $this->datetime()->defaultExpression('CURRENT_TIMESTAMP'),
         ], $tableOptions);
-        $this->createIndex('{{%idx-redirects-requests}}', '{{%redirects}}', ['request_url(255)']);
-        $this->createIndex('{{%idx-redirects-redirects}}', '{{%redirects}}', ['redirect_url(255)']);
+
+        if ($this->db->driverName === 'mysql') {
+            $this->createIndex('{{%idx-redirects-requests}}', '{{%redirects}}', ['request_url(255)']);
+            $this->createIndex('{{%idx-redirects-redirects}}', '{{%redirects}}', ['redirect_url(255)']);
+        } else {
+            $this->createIndex('{{%idx-redirects-requests}}', '{{%redirects}}', ['request_url']);
+            $this->createIndex('{{%idx-redirects-redirects}}', '{{%redirects}}', ['redirect_url']);
+        }
+
         $this->createIndex('{{%idx-redirects-status}}', '{{%redirects}}', ['code', 'is_active']);
 
     }

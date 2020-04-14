@@ -1,8 +1,8 @@
 [![Yii2](https://img.shields.io/badge/required-Yii2_v2.0.33-blue.svg)](https://packagist.org/packages/yiisoft/yii2)
-[![Github all releases](https://img.shields.io/github/downloads/wdmg/yii2-redirects/total.svg)](https://GitHub.com/wdmg/yii2-redirects/releases/)
+[![Downloads](https://img.shields.io/packagist/dt/wdmg/yii2-redirects.svg)](https://packagist.org/packages/wdmg/yii2-redirects)
+[![Packagist Version](https://img.shields.io/packagist/v/wdmg/yii2-redirects.svg)](https://packagist.org/packages/wdmg/yii2-redirects)
 ![Progress](https://img.shields.io/badge/progress-ready_to_use-green.svg)
 [![GitHub license](https://img.shields.io/github/license/wdmg/yii2-redirects.svg)](https://github.com/wdmg/yii2-redirects/blob/master/LICENSE)
-![GitHub release](https://img.shields.io/github/release/wdmg/yii2-redirects/all.svg)
 
 # Yii2 Redirects Module
 Redirects module for Yii2
@@ -70,6 +70,7 @@ Use the `Module::dashboardNavItems()` method of the module to generate a navigat
     ?>
 
 # Status and version [ready to use]
+* v.1.0.10 - Update dependencies, fixed migrations
 * v.1.0.9 - Added pagination, up to date dependencies
 * v.1.0.8 - Migrations bugfix
 * v.1.0.7 - Added allowExternal option for add absolute URL
