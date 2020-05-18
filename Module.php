@@ -107,12 +107,14 @@ class Module extends BaseModule
             ]
         ]);
 
-        // Check for redirection
-        if (!($app instanceof \yii\console\Application) && $this->autocheck && $this->module && ($app->redirects instanceof \yii\base\Component)) {
-            \yii\base\Event::on(\yii\base\Controller::class, \yii\base\Controller::EVENT_BEFORE_ACTION, function ($event) {
-                $url = Yii::$app->request->getUrl();
-                Yii::$app->redirects->check($url);
-            });
+        // Check for redirection (frontend)
+        if (!$this->isBackend() && !$this->isConsole()) {
+            if ($this->autocheck && $this->module && ($app->redirects instanceof \yii\base\Component)) {
+                \yii\base\Event::on(\yii\base\Controller::class, \yii\base\Controller::EVENT_BEFORE_ACTION, function ($event) {
+                    $url = Yii::$app->request->getUrl();
+                    Yii::$app->redirects->check($url);
+                });
+            }
         }
     }
 }

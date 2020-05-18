@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.*
+ * Fixed check for redirection (only frontend)
+ * Update check() method of component
+ 
 ## 1.0.10 (2020-04-14)
  * Update dependencies, fixed migrations
  

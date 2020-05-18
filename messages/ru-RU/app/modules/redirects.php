@@ -84,6 +84,8 @@ return [
     'The redirect URL must not coincide with request URL.' => 'URL перенаправления не должен совпадать с URL запроса.',
     'The redirect URL must be exist and returning 200 HTTP code.' => 'URL перенаправления должен существовать и возвращать 200 HTTP-код.',
 
+    'For this URL is active redirect to {url}' => 'Для данного URL активно перенаправление на {url}',
+
 ];
 
 ?>

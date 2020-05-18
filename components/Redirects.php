@@ -19,6 +19,7 @@ use Yii;
 use yii\base\Component;
 use yii\base\InvalidArgumentException;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 class Redirects extends Component
 {
@@ -40,16 +41,25 @@ class Redirects extends Component
     /**
      * Check if URL need to redirect
      *
-     * @param $url string
-     * @return boolean (false) or the response object of redirection
+     * @param $url
+     * @param bool $setRedirect
+     * @return bool|\yii\console\Response|\yii\web\Response
      */
-    public function check($url)
+    public function check($url, $setRedirect = true)
     {
-        $this->request_url = $url;
+
+        if (!Url::isRelative($url))
+            $this->request_url = \parse_url($url, PHP_URL_PATH);
+        else
+            $this->request_url = $url;
+
         if ($this->model && $this->request_url) {
             $redirect = $this->model::findOne(['request_url' => $this->request_url, 'is_active' => true]);
             if ($redirect !== null) {
-                return Yii::$app->response->redirect(\yii\helpers\Url::to($redirect->redirect_url), $redirect->code);
+                if ($setRedirect)
+                    return Yii::$app->response->redirect(\yii\helpers\Url::to($redirect->redirect_url), $redirect->code);
+                else
+                    return $redirect->redirect_url;
             }
         } else {
             return false;
