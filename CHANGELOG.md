@@ -1,7 +1,8 @@
 Changelog
 =========
 
-## 1.*
+## 1.0.11 (2020-06-06)
+ * Added log activity
  * Fixed check for redirection (only frontend)
  * Update check() method of component
  

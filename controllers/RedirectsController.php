@@ -158,6 +158,14 @@ class RedirectsController extends Controller
                 $model = new RedirectsImport();
                 if (count($data) > 0) {
                     if ($model->import($data)) {
+                        // Log activity
+                        $this->module->logActivity(
+                            'List of redirects has been successfully added.',
+                            $this->uniqueId . ":" . $this->action->id,
+                            'success',
+                            1
+                        );
+
                         Yii::$app->getSession()->setFlash(
                             'success',
                             Yii::t(
@@ -167,6 +175,14 @@ class RedirectsController extends Controller
                         );
                     }
                 } else {
+                    // Log activity
+                    $this->module->logActivity(
+                        'An error occurred while add list of redirects.',
+                        $this->uniqueId . ":" . $this->action->id,
+                        'danger',
+                        1
+                    );
+
                     Yii::$app->getSession()->setFlash(
                         'danger',
                         Yii::t(
@@ -178,7 +194,15 @@ class RedirectsController extends Controller
 
             } else {
                 if ($model->load($post)) {
-                    if($model->save()) {
+                    if ($model->save()) {
+                        // Log activity
+                        $this->module->logActivity(
+                            'Redirect (' . $model->code . ') for `' . $model->request_url . '` to `' . $model->redirect_url . '` successfully added.',
+                            $this->uniqueId . ":" . $this->action->id,
+                            'success',
+                            1
+                        );
+
                         Yii::$app->getSession()->setFlash(
                             'success',
                             Yii::t(
@@ -193,6 +217,14 @@ class RedirectsController extends Controller
                         );
                         return $this->redirect(['index']);
                     } else {
+                        // Log activity
+                        $this->module->logActivity(
+                            'An error occurred while adding a ' . $model->code . '-redirect for `' . $model->request_url . '` to `' . $model->redirect_url . '`.',
+                            $this->uniqueId . ":" . $this->action->id,
+                            'danger',
+                            1
+                        );
+
                         Yii::$app->getSession()->setFlash(
                             'danger',
                             Yii::t(
@@ -233,7 +265,15 @@ class RedirectsController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post())) {
-            if($model->save()) {
+            if ($model->save()) {
+                // Log activity
+                $this->module->logActivity(
+                    'Redirect (' . $model->code . ') for `' . $model->request_url . '` to `' . $model->redirect_url . '` successfully updated.',
+                    $this->uniqueId . ":" . $this->action->id,
+                    'success',
+                    1
+                );
+
                 Yii::$app->getSession()->setFlash(
                     'success',
                     Yii::t(
@@ -247,6 +287,14 @@ class RedirectsController extends Controller
                     )
                 );
             } else {
+                // Log activity
+                $this->module->logActivity(
+                    'An error occurred while updating a ' . $model->code . '-redirect for `' . $model->request_url . '` to `' . $model->redirect_url . '`.',
+                    $this->uniqueId . ":" . $this->action->id,
+                    'danger',
+                    1
+                );
+
                 Yii::$app->getSession()->setFlash(
                     'danger',
                     Yii::t(
@@ -281,7 +329,15 @@ class RedirectsController extends Controller
     {
 
         $model = $this->findModel($id);
-        if($model->delete()) {
+        if ($model->delete()) {
+            // Log activity
+            $this->module->logActivity(
+                'Redirect (' . $model->code . ') for `' . $model->request_url . '` to `' . $model->redirect_url . '` successfully deleted.',
+                $this->uniqueId . ":" . $this->action->id,
+                'success',
+                1
+            );
+
             Yii::$app->getSession()->setFlash(
                 'success',
                 Yii::t(
@@ -295,6 +351,14 @@ class RedirectsController extends Controller
                 )
             );
         } else {
+            // Log activity
+            $this->module->logActivity(
+                'An error occurred while deleting a ' . $model->code . '-redirect for `' . $model->request_url . '` to `' . $model->redirect_url . '`.',
+                $this->uniqueId . ":" . $this->action->id,
+                'danger',
+                1
+            );
+
             Yii::$app->getSession()->setFlash(
                 'danger',
                 Yii::t(
@@ -328,6 +392,14 @@ class RedirectsController extends Controller
                 $redirects = file_get_contents($import->tempName);
                 if ($data = Json::decode($redirects)) {
                     if ($model->import($data)) {
+                        // Log activity
+                        $this->module->logActivity(
+                            'Redirects successfully imported/updated.',
+                            $this->uniqueId . ":" . $this->action->id,
+                            'success',
+                            1
+                        );
+
                         Yii::$app->getSession()->setFlash(
                             'success',
                             Yii::t(
@@ -337,6 +409,14 @@ class RedirectsController extends Controller
                         );
                     }
                 } else {
+                    // Log activity
+                    $this->module->logActivity(
+                        'An error occurred while importing/updating redirects.',
+                        $this->uniqueId . ":" . $this->action->id,
+                        'danger',
+                        1
+                    );
+
                     Yii::$app->getSession()->setFlash(
                         'danger',
                         Yii::t(
