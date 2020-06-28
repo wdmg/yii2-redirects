@@ -6,7 +6,7 @@ namespace wdmg\redirects;
  * Yii2 Redirects
  *
  * @category        Module
- * @version         1.0.11
+ * @version         1.0.12
  * @author          Alexsander Vyshnyvetskyy <alex.vyshnyvetskyy@gmail.com>
  * @link            https://github.com/wdmg/yii2-redirects
  * @copyright       Copyright (c) 2019 - 2020 W.D.M.Group, Ukraine
@@ -57,7 +57,7 @@ class Module extends BaseModule
     /**
      * @var string the module version
      */
-    private $version = "1.0.11";
+    private $version = "1.0.12";
 
     /**
      * @var integer, priority of initialization
