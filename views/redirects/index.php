@@ -138,10 +138,10 @@ JS
             ],
             'maxButtonCount' => 5,
             'activePageCssClass' => 'active',
-            'prevPageCssClass' => '',
-            'nextPageCssClass' => '',
-            'firstPageCssClass' => 'previous',
-            'lastPageCssClass' => 'next',
+            'prevPageCssClass' => 'prev',
+            'nextPageCssClass' => 'next',
+            'firstPageCssClass' => 'first',
+            'lastPageCssClass' => 'last',
             'firstPageLabel' => Yii::t('app/modules/redirects', 'First page'),
             'lastPageLabel'  => Yii::t('app/modules/redirects', 'Last page'),
             'prevPageLabel'  => Yii::t('app/modules/redirects', '&larr; Prev page'),
@@ -174,9 +174,11 @@ JS
         $container.delegate(\'[data-toggle="button-switcher"] button\', \'click\', function() {
             var id = $(this).parent(\'.btn-group\').data(\'id\');
             var value = $(this).data(\'value\');
+            let url = new URL(requestURL);
+            url.searchParams.set(\'change\', \'status\');            
             $.ajax({
                 type: "POST",
-                url: requestURL + \'?change=status\',
+                url: url.toString(),
                 dataType: \'json\',
                 data: {\'id\': id, \'value\': value},
                 complete: function(data) {
