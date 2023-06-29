@@ -1,6 +1,9 @@
 Changelog
 =========
 
+## 1.1.0 (2023-06-29)
+ * Update copyrights, fix nav menu
+
 ## 1.0.12 (2020-06-28)
  * Update dependencies, README.md
  

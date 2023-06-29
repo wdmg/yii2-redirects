@@ -53,7 +53,7 @@ class Redirects extends Component
             $this->request_url = $url;
 
         if ($this->model && $this->request_url) {
-            $redirect = $this->model::findOne(['request_url' => $this->request_url, 'is_active' => true]);
+            $redirect = $this->model->findOne(['request_url' => $this->request_url, 'is_active' => true]);
             if ($redirect !== null) {
                 if ($setRedirect)
                     return Yii::$app->response->redirect(\yii\helpers\Url::to($redirect->redirect_url), $redirect->code);
